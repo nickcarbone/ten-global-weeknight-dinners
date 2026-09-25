@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ten Weeknights — protein-centric cooking from ten kitchens</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#EDEFEA;
+    --paper-deep:#E2E5DD;
+    --ink:#1B2019;
+    --ink-soft:#4A5249;
+    --oxblood:#6E2230;
+    --brass:#8C6F32;
+    --rule:rgba(27,32,25,.18);
+    --measure:34rem;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Spectral',Georgia,serif;
+    font-weight:400;
+    font-size:17px;
+    line-height:1.62;
+  }
+  .wrap{max-width:60rem;margin:0 auto;padding:0 1.35rem 5rem}
+
+  /* ---------- masthead ---------- */
+  header.mast{padding:4.5rem 0 2.5rem;border-bottom:1px solid var(--rule)}
+  .mast h1{
+    font-family:'Cormorant Garamond',serif;
+    font-weight:600;
+    font-size:clamp(3.4rem,13vw,7rem);
+    line-height:.88;
+    letter-spacing:-.015em;
+    margin:0 0 1.2rem;
+  }
+  .mast h1 em{font-style:italic;font-weight:400;display:block}
+  .standfirst{max-width:var(--measure);font-size:1.06rem;color:var(--ink-soft);margin:0 0 1.6rem}
+  .countries{
+    font-family:'Cormorant Garamond',serif;
+    font-size:1.15rem;
+    color:var(--oxblood);
+    line-height:1.7;
+    max-width:var(--measure);
+  }
+
+  /* ---------- contents ---------- */
+  nav.contents{padding:2.4rem 0 .6rem}
+  nav.contents h2,section.appendix h2{
+    font-family:'Cormorant Garamond',serif;
+    font-size:1.5rem;font-weight:600;margin:0 0 1rem;
+  }
+  nav.contents ol{list-style:none;margin:0;padding:0;columns:2;column-gap:2.5rem}
+  nav.contents li{break-inside:avoid;padding:.34rem 0;border-bottom:1px dotted var(--rule)}
+  nav.contents a{
+    display:flex;gap:.6rem;align-items:baseline;justify-content:space-between;
+    color:var(--ink);text-decoration:none;
+  }
+  nav.contents a:hover span.dish,nav.contents a:focus span.dish{color:var(--oxblood)}
+  nav.contents .place{font-family:'Cormorant Garamond',serif;font-size:1.02rem;color:var(--ink-soft);white-space:nowrap}
+  nav.contents .dish{font-size:.95rem}
+
+  .preamble{max-width:var(--measure);margin:2.6rem 0 0;color:var(--ink-soft);font-size:.98rem}
+  .preamble strong{color:var(--ink);font-weight:600}
+
+  /* ---------- recipe ---------- */
+  article.recipe{padding:3.6rem 0 1rem;border-top:1px solid var(--rule);margin-top:3rem}
+  .place-line{
+    font-family:'Cormorant Garamond',serif;
+    font-size:1.25rem;color:var(--oxblood);margin:0 0 .15rem;
+  }
+  article.recipe h2{
+    font-family:'Cormorant Garamond',serif;
+    font-weight:600;font-size:clamp(2.1rem,6.5vw,3.3rem);
+    line-height:1.02;margin:0 0 .35rem;letter-spacing:-.01em;
+  }
+  .pronounce{font-style:italic;color:var(--ink-soft);margin:0 0 .9rem;font-size:.97rem}
+  .stats{
+    display:flex;flex-wrap:wrap;gap:.35rem 1.4rem;
+    font-size:.9rem;color:var(--ink-soft);
+    padding:.55rem 0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);
+    margin:0 0 1.5rem;
+  }
+  .stats b{font-weight:600;color:var(--ink)}
+  .intro{max-width:var(--measure);margin:0 0 2rem}
+
+  .cols{display:grid;grid-template-columns:19rem 1fr;gap:2.6rem}
+  @media(max-width:760px){.cols{grid-template-columns:1fr;gap:2rem}}
+
+  .side h3,.method h3{
+    font-family:'Cormorant Garamond',serif;
+    font-size:1.28rem;font-weight:600;margin:0 0 .55rem;
+  }
+  .side section{margin:0 0 1.9rem}
+  .side ul{list-style:none;margin:0;padding:0;font-size:.95rem}
+  .side li{padding:.3rem 0;border-bottom:1px solid var(--rule);line-height:1.45}
+  .side li:last-child{border-bottom:none}
+  .qty{color:var(--brass)}
+  .group{
+    font-family:'Cormorant Garamond',serif;font-size:1.02rem;
+    color:var(--ink-soft);margin:.9rem 0 .1rem;
+  }
+  .subs p{font-size:.93rem;margin:0 0 .6rem;color:var(--ink-soft)}
+  .subs b{color:var(--ink);font-weight:600}
+
+  .method ol{margin:0;padding:0;list-style:none;counter-reset:step}
+  .method li{
+    counter-increment:step;
+    position:relative;padding:0 0 1.05rem 2.6rem;max-width:var(--measure);
+  }
+  .method li::before{
+    content:counter(step);
+    position:absolute;left:0;top:-.1rem;
+    font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:var(--oxblood);
+  }
+  .note{
+    margin:1.4rem 0 0;padding:1rem 1.2rem;
+    background:var(--paper-deep);border-left:2px solid var(--brass);
+    font-size:.95rem;max-width:var(--measure);
+  }
+  .note b{font-weight:600}
+
+  /* ---------- appendix ---------- */
+  section.appendix{padding:3.6rem 0 0;border-top:1px solid var(--rule);margin-top:3.4rem}
+  .pantry{columns:2;column-gap:2.5rem;font-size:.95rem;list-style:none;padding:0;margin:0 0 2rem}
+  .pantry li{break-inside:avoid;padding:.28rem 0;border-bottom:1px solid var(--rule)}
+  @media(max-width:560px){.pantry,nav.contents ol{columns:1}}
+  footer{margin-top:3rem;padding-top:1.4rem;border-top:1px solid var(--rule);font-size:.88rem;color:var(--ink-soft);max-width:var(--measure)}
+
+  a:focus-visible{outline:2px solid var(--oxblood);outline-offset:3px}
+  @media print{
+    body{background:#fff;font-size:11pt}
+    article.recipe{break-before:page;padding-top:1rem}
+    .note{background:#f2f2f2}
+    nav.contents{break-after:page}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="mast">
+  <h1>Ten<br>Weeknights<em>ten kitchens</em></h1>
+  <p class="standfirst">Ten dishes built around protein, each one real where it comes from and each one finishable on a Tuesday. Nothing marinates overnight. Nothing needs a special pan. Where a dish has been trimmed to fit the clock, the trim is named rather than hidden.</p>
+  <p class="countries">Japan · Türkiye · Mexico · India · Lebanon · Korea · Peru · Ethiopia · Vietnam · Portugal</p>
+</header>
+
+<nav class="contents">
+  <h2>Contents</h2>
+  <ol>
+    <li><a href="#japan"><span class="dish">Buta no shōgayaki</span><span class="place">Japan</span></a></li>
+    <li><a href="#turkiye"><span class="dish">Çılbır</span><span class="place">Türkiye</span></a></li>
+    <li><a href="#mexico"><span class="dish">Tinga de pollo</span><span class="place">Mexico</span></a></li>
+    <li><a href="#india"><span class="dish">Chana masala</span><span class="place">India</span></a></li>
+    <li><a href="#lebanon"><span class="dish">Kafta</span><span class="place">Lebanon</span></a></li>
+    <li><a href="#korea"><span class="dish">Dubu jorim</span><span class="place">Korea</span></a></li>
+    <li><a href="#peru"><span class="dish">Lomo saltado</span><span class="place">Peru</span></a></li>
+    <li><a href="#ethiopia"><span class="dish">Misir wot</span><span class="place">Ethiopia</span></a></li>
+    <li><a href="#vietnam"><span class="dish">Cá kho</span><span class="place">Vietnam</span></a></li>
+    <li><a href="#portugal"><span class="dish">Bitoque</span><span class="place">Portugal</span></a></li>
+  </ol>
+
+  <p class="preamble"><strong>How to read this.</strong> Each recipe carries a shopping list split into what you buy fresh and what should already be on the shelf, plus substitutions that say honestly how far the swap moves the dish. Quantities serve two to four as marked. Times are active time at the stove — rice and oven fries run alongside.</p>
+</nav>
+
+<!-- 1 JAPAN -->
+<article class="recipe" id="japan">
+  <p class="place-line">Japan</p>
+  <h2>Buta no shōgayaki</h2>
+  <p class="pronounce">Ginger pork, the default order at a Tokyo lunch counter</p>
+  <div class="stats"><span><b>Serves</b> 2</span><span><b>Active</b> 15 minutes</span><span><b>Protein</b> pork loin</span><span><b>Pan</b> one skillet</span></div>
+  <p class="intro">Thin pork, hot pan, a sauce that reduces to a glaze in under a minute. The raw shredded cabbage alongside isn't garnish — it cuts the sweetness of the mirin and is the reason the plate works.</p>
+
+  <div class="cols">
+    <div class="side">
+      <section>
+        <h3>Shopping</h3>
+        <p class="group">Fresh</p>
+        <ul>
+          <li><span class="qty">400 g</span> pork loin, sliced very thin — or two chops, pounded to 5 mm</li>
+          <li><span class="qty">1</span> onion</li>
+          <li><span class="qty">1</span> thumb of ginger</li>
+          <li><span class="qty">¼</span> head white cabbage</li>
+        </ul>
+        <p class="group">Pantry</p>
+        <ul>
+          <li><span class="qty">2 tbsp</span> soy sauce</li>
+          <li><span class="qty">2 tbsp</span> mirin</li>
+          <li><span class="qty">1 tbsp</span> sake</li>
+          <li><span class="qty">1 tsp</span> sugar</li>
+          <li>neutral oil · rice</li>
+        </ul>
+      </section>
+      <section class="subs">
+        <h3>If you don't have it</h3>
+        <p><b>Mirin</b> — 1 tbsp sugar dissolved in 1 tbsp water. Close enough; you lose a little depth, not the dish.</p>
+        <p><b>Sake</b> — dry sherry, or leave it out and add a splash of water.</p>
+        <p><b>Pork</b> — chicken thigh sliced thin works and is cooked the same way, though it wants an extra minute.</p>
+        <p><b>Pre-sliced pork</b> — freeze a loin for 30 minutes and it slices thin with an ordinary knife.</p>
+      </section>
+    </div>
+
+    <div class="method">
+      <h3>Method</h3>
+      <ol>
+        <li>Grate the ginger — you want about 2 tbsp with its juice. Stir together with the soy, mirin, sake and sugar.</li>
+        <li>Shred the cabbage as finely as you can and sit it in cold water while you cook. It crisps.</li>
+        <li>Get a skillet properly hot with a film of oil. Lay the pork in a single layer and sear 1 minute a side, in batches if you must. Lift it out.</li>
+        <li>Slice the onion and cook it in the same pan 2–3 minutes, until it slumps but keeps some bite.</li>
+        <li>Return the pork, pour in the sauce and let it bubble for about a minute, turning the meat until everything is glossy and the sauce coats rather than pools.</li>
+        <li>Rice, pork, a heap of drained cabbage on the side.</li>
+      </ol>
+      <p class="note"><b>The one thing that matters:</b> the sauce goes in at the end, not as a marinade. In the pan for more than 90 seconds it turns from glaze to syrup and the ginger goes flat.</p>
+    </div>
+  </div>
+</article>
+
+<!-- 2 TÜRKIYE -->
+<article class="recipe" id="turkiye">
+  <p class="place-line">Türkiye</p>
+  <h2>Çılbır</h2>
+  <p class="pronounce">Poached eggs in garlic yoghurt under pepper butter</p>
+  <div class="stats"><span><b>Serves</b> 2</span><span><b>Active</b> 15 minutes</span><span><b>Protein</b> eggs and yoghurt</span><span><b>Pan</b> one pot, one small pan</span></div>
+  <p class="intro">Eaten in Türkiye mostly at breakfast, and claimed to go back to the Ottoman palace kitchens — but it is a complete dinner for anyone who keeps eggs and a tub of yoghurt. Two proteins doing different jobs: the yoghurt is the sauce.</p>
+
+  <div class="cols">
+    <div class="side">
+      <section>
+        <h3>Shopping</h3>
+        <p class="group">Fresh</p>
+        <ul>
+          <li><span class="qty">400 g</span> thick full-fat plain yoghurt</li>
+          <li><span class="qty">4</span> eggs, as fresh as you can get</li>
+          <li><span class="qty">1</span> small garlic clove</li>
+          <li>a few sprigs of dill</li>
+          <li>good bread</li>
+        </ul>
+        <p class="group">Pantry</p>
+        <ul>
+          <li><span class="qty">60 g</span> butter</li>
+          <li><span class="qty">1–2 tsp</span> Aleppo pepper (pul biber)</li>
+          <li><span class="qty">1 tbsp</span> white vinegar</li>
+          <li>salt</li>
+        </ul>
+      </section>
+      <section class="subs">
+        <h3>If you don't have it</h3>
+        <p><b>Aleppo pepper</b> — sweet paprika plus a pinch of cayenne gets you the colour and roughly the heat. It misses the raisin-like fruitiness, which is most of the point, so buy the real thing when you can.</p>
+        <p><b>Thick yoghurt</b> — Greek yoghurt loosened with a spoonful of water. Avoid low-fat: it splits under the hot butter.</p>
+        <p><b>Dill</b> — mint is the common alternative and equally at home.</p>
+        <p><b>More protein</b> — six eggs for two people is not unusual here.</p>
+      </section>
+    </div>
+
+    <div class="method">
+      <h3>Method</h3>
+      <ol>
+        <li>Grate the garlic into the yoghurt, salt it, and leave it out on the counter. Fridge-cold yoghurt under a hot egg is the most common way this dish goes wrong.</li>
+        <li>Bring a wide pan of water to a bare simmer with the vinegar. Crack each egg into a cup, slide it in, and poach 3 minutes for a liquid yolk.</li>
+        <li>Meanwhile melt the butter in a small pan until it foams and just begins to smell nutty. Take it off the heat and stir in the Aleppo pepper — off the heat, or it scorches and turns bitter.</li>
+        <li>Spread the yoghurt across two shallow bowls. Lift the eggs out with a slotted spoon, drain them for a second on a cloth, and set them on the yoghurt.</li>
+        <li>Pour the red butter over, tear dill across the top, and eat with bread pulled through it all.</li>
+      </ol>
+      <p class="note"><b>Scaling up:</b> poaching more than four eggs at once drops the water temperature. Cook in two rounds and hold the first batch in warm water.</p>
+    </div>
+  </div>
+</article>
+
+<!-- 3 MEXICO -->
+<article class="recipe" id="mexico">
+  <p class="place-line">Mexico</p>
+  <h2>Tinga de pollo</h2>
+  <p class="pronounce">Shredded chicken in tomato and chipotle, from Puebla</p>
+  <div class="stats"><span><b>Serves</b> 4</span><span><b>Active</b> 25 minutes</span><span><b>Protein</b> chicken thigh</span><span><b>Pan</b> one pot, one skillet</span></div>
+  <p class="intro">The most useful thing in this book: one pot of tinga becomes tacos on Monday, tostadas on Wednesday and a filled roll on Thursday. A supermarket rotisserie chicken turns it into a fifteen-minute dish without cheapening it — pulled cooked chicken is how it is made at home anyway.</p>
+
+  <div class="cols">
+    <div class="side">
+      <section>
+        <h3>Shopping</h3>
+        <p class="group">Fresh</p>
+        <ul>
+          <li><span class="qty">700 g</span> boneless chicken thighs — or the meat of one rotisserie chicken</li>
+          <li><span class="qty">1</span> white onion</li>
+          <li><span class="qty">2</span> garlic cloves</li>
+          <li><span class="qty">4</span> ripe tomatoes, or a 400 g can</li>
+          <li>corn tortillas · avocado · crema or sour cream</li>
+        </ul>
+        <p class="group">Pantry</p>
+        <ul>
+          <li><span class="qty">2–3</span> chipotles in adobo, plus 1 tbsp of the adobo</li>
+          <li><span class="qty">1 tsp</span> dried oregano</li>
+          <li><span class="qty">1</span> bay leaf</li>
+          <li>oil · salt</li>
+        </ul>
+      </section>
+      <section class="subs">
+        <h3>If you don't have it</h3>
+        <p><b>Chipotles in adobo</b> — there is no real substitute; smoked paprika with chilli flakes gives smoke and heat but none of the sour-sweet adobo. A tin lasts months in the freezer, frozen in single-chilli lumps.</p>
+        <p><b>Chicken</b> — shredded pork shoulder is the other traditional version. Mushrooms make a good meatless tinga but drop the protein sharply.</p>
+        <p><b>Crema</b> — sour cream thinned with a little lime juice.</p>
+      </section>
+    </div>
+
+    <div class="method">
+      <h3>Method</h3>
+      <ol>
+        <li>If starting raw: simmer the thighs in salted water with half the onion and the bay leaf for 15 minutes. Lift out, keep a cup of the broth, and shred with two forks. Skip all of this with rotisserie chicken.</li>
+        <li>Blend the tomatoes with the garlic, the chipotles and their adobo until smooth.</li>
+        <li>Slice the remaining onion and fry it in oil over medium-high heat for 5 minutes, until the edges colour.</li>
+        <li>Pour in the blended sauce with the oregano and a good pinch of salt. Let it bubble hard for 5 minutes — it should darken and thicken.</li>
+        <li>Fold in the chicken with a splash of the reserved broth and simmer 5 minutes more, until the meat has taken on the sauce and there is no loose liquid in the pan.</li>
+        <li>Pile into warm tortillas with avocado and crema.</li>
+      </ol>
+      <p class="note"><b>Heat control:</b> chipotles vary wildly. Start with two, taste after the sauce has reduced, and stir in more adobo rather than another chilli if you want it hotter.</p>
+    </div>
+  </div>
+</article>
+
+<!-- 4 INDIA -->
+<article class="recipe" id="india">
+  <p class="place-line">India</p>
+  <h2>Chana masala</h2>
+  <p class="pronounce">Chickpeas in a dark, sour tomato masala</p>
+  <div class="stats"><span><b>Serves</b> 4</span><span><b>Active</b> 25 minutes</span><span><b>Protein</b> chickpeas</span><span><b>Pan</b> one pot</span></div>
+  <p class="intro">Canned chickpeas are the entire reason this is a weeknight dish rather than an overnight soak. The sourness is not optional — amchur, dried mango powder, is what separates chana masala from a generic chickpea stew.</p>
+
+  <div class="cols">
+    <div class="side">
+      <section>
+        <h3>Shopping</h3>
+        <p class="group">Fresh</p>
+        <ul>
+          <li><span class="qty">1</span> large onion</li>
+          <li><span class="qty">2</span> garlic cloves · <span class="qty">1</span> thumb ginger</li>
+          <li><span class="qty">2</span> tomatoes, or 200 g canned</li>
+          <li>coriander · 1 lemon</li>
+        </ul>
+        <p class="group">Pantry</p>
+        <ul>
+          <li><span class="qty">2 × 400 g</span> cans chickpeas</li>
+          <li><span class="qty">1 tsp</span> cumin seeds</li>
+          <li><span class="qty">1 tsp</span> ground coriander</li>
+          <li><span class="qty">½ tsp</span> turmeric</li>
+          <li><span class="qty">½–1 tsp</span> chilli powder</li>
+          <li><span class="qty">1 tsp</span> garam masala</li>
+          <li><span class="qty">1 tsp</span> amchur</li>
+          <li>oil or ghee · salt · rice or flatbread</li>
+        </ul>
+      </section>
+      <section class="subs">
+        <h3>If you don't have it</h3>
+        <p><b>Amchur</b> — the juice of half a lemon, stirred in at the end. Lemon is sharper and less fruity, but it does the job properly.</p>
+        <p><b>Garam masala</b> — every blend differs; add it off the heat whichever you use, since the aromatics are volatile.</p>
+        <p><b>More protein</b> — 200 g of paneer, cubed and browned, goes in for the last 5 minutes. Tofu behaves the same way.</p>
+        <p><b>Dried chickpeas</b> — 250 g soaked overnight and boiled until soft; keep the cooking water for the sauce.</p>
+      </section>
+    </div>
+
+    <div class="method">
+      <h3>Method</h3>
+      <ol>
+        <li>Heat 2 tbsp oil and drop in the cumin seeds. When they sizzle and darken — 20 seconds — add the finely chopped onion.</li>
+        <li>Cook the onion 6–8 minutes over medium heat until properly golden. This is the step people cut short, and it costs the dish its colour and sweetness.</li>
+        <li>Add the grated ginger and garlic, fry 1 minute, then the ground coriander, turmeric and chilli for 30 seconds.</li>
+        <li>Add the chopped tomatoes and cook hard for about 5 minutes, until the mixture pulls together and you see oil separating at the edges.</li>
+        <li>Tip in the drained chickpeas with 150 ml water and a good pinch of salt. Simmer 10 minutes, mashing a few chickpeas against the side to thicken the sauce.</li>
+        <li>Off the heat, stir in the garam masala and the amchur. Taste for salt and sourness, then scatter with coriander.</li>
+      </ol>
+      <p class="note"><b>Better the next day, genuinely:</b> the sauce tightens and the spices settle overnight. Make the full quantity even for two.</p>
+    </div>
+  </div>
+</article>
+
+<!-- 5 LEBANON -->
+<article class="recipe" id="lebanon">
+  <p class="place-line">Lebanon</p>
+  <h2>Kafta</h2>
+  <p class="pronounce">Minced lamb and parsley, grilled hard and fast</p>
+  <div class="stats"><span><b>Serves</b> 4</span><span><b>Active</b> 20 minutes</span><span><b>Protein</b> lamb or beef</span><span><b>Pan</b> broiler or grill pan</span></div>
+  <p class="intro">Three ingredients carry it: meat, grated onion, and far more parsley than feels reasonable. Skewers are traditional but a hot grill pan or an overhead broiler does the same job on a weeknight.</p>
+
+  <div class="cols">
+    <div class="side">
+      <section>
+        <h3>Shopping</h3>
+        <p class="group">Fresh</p>
+        <ul>
+          <li><span class="qty">500 g</span> minced lamb, or half lamb half beef — not lean</li>
+          <li><span class="qty">1</span> small onion</li>
+          <li><span class="qty">1</span> large bunch flat-leaf parsley</li>
+          <li><span class="qty">1</span> lemon · tomatoes · flatbread</li>
+        </ul>
+        <p class="group">Pantry</p>
+        <ul>
+          <li><span class="qty">1 tsp</span> allspice, or Lebanese seven-spice</li>
+          <li><span class="qty">½ tsp</span> cinnamon</li>
+          <li><span class="qty">3 tbsp</span> tahini</li>
+          <li>salt · black pepper</li>
+        </ul>
+      </section>
+      <section class="subs">
+        <h3>If you don't have it</h3>
+        <p><b>Seven-spice</b> — allspice with a little cinnamon and black pepper is the backbone of most blends and is what is written here.</p>
+        <p><b>Lamb</b> — beef is standard too. Turkey works but needs a tablespoon of olive oil worked in, or it dries out under the broiler.</p>
+        <p><b>Tahini sauce</b> — thick yoghurt with garlic and lemon if there is no tahini in the house.</p>
+      </section>
+    </div>
+
+    <div class="method">
+      <h3>Method</h3>
+      <ol>
+        <li>Grate the onion, then squeeze it hard in your hands or a cloth until the liquid is gone. Wet onion steams the meat instead of searing it.</li>
+        <li>Chop the parsley finely — leaves and thin stems, about a packed cup once chopped.</li>
+        <li>Mix meat, onion, parsley, allspice, cinnamon, a heavy teaspoon of salt and plenty of pepper with your hands. Stop as soon as it is combined; worked too long it goes springy.</li>
+        <li>Shape into flat fingers about 2 cm thick, pressed around skewers or laid straight on a tray.</li>
+        <li>Broil or grill 3–4 minutes a side, close to the heat, until well charred at the edges and just cooked through.</li>
+        <li>While they cook, whisk the tahini with the juice of the lemon, a crushed garlic clove and cold water a spoonful at a time. It seizes, then loosens into a pourable cream.</li>
+        <li>Serve in flatbread with tomato and the sauce.</li>
+      </ol>
+      <p class="note"><b>On the mince:</b> ask for 20% fat. Lean mince makes kafta that crumbles off the skewer and tastes of very little.</p>
+    </div>
+  </div>
+</article>
+
+<!-- 6 KOREA -->
+<article class="recipe" id="korea">
+  <p class="place-line">Korea</p>
+  <h2>Dubu jorim</h2>
+  <p class="pronounce">Tofu braised in soy, garlic and chilli flake</p>
+  <div class="stats"><span><b>Serves</b> 2–3</span><span><b>Active</b> 20 minutes</span><span><b>Protein</b> firm tofu</span><span><b>Pan</b> one skillet</span></div>
+  <p class="intro">A banchan that carries a meal on its own. Frying the tofu first is what stops it from tasting like sauce poured over a sponge — the skin holds, the inside stays soft, and the braise glazes rather than soaks.</p>
+
+  <div class="cols">
+    <div class="side">
+      <section>
+        <h3>Shopping</h3>
+        <p class="group">Fresh</p>
+        <ul>
+          <li><span class="qty">400 g</span> firm tofu</li>
+          <li><span class="qty">2</span> spring onions</li>
+          <li><span class="qty">2</span> garlic cloves</li>
+        </ul>
+        <p class="group">Pantry</p>
+        <ul>
+          <li><span class="qty">3 tbsp</span> soy sauce</li>
+          <li><span class="qty">1 tbsp</span> gochugaru (Korean chilli flake)</li>
+          <li><span class="qty">1 tsp</span> sugar</li>
+          <li><span class="qty">1 tbsp</span> sesame oil</li>
+          <li><span class="qty">1 tsp</span> sesame seeds</li>
+          <li>neutral oil · rice</li>
+        </ul>
+      </section>
+      <section class="subs">
+        <h3>If you don't have it</h3>
+        <p><b>Gochugaru</b> — ordinary chilli flakes with a spoon of sweet paprika approximate the colour and heat, but gochugaru is fruitier and far less sharp, so use a light hand and expect a different dish.</p>
+        <p><b>Firm tofu</b> — essential. Silken collapses in the pan.</p>
+        <p><b>Meat version</b> — the identical sauce works on chicken thigh or thin pork belly; braise 10 minutes instead of 5.</p>
+      </section>
+    </div>
+
+    <div class="method">
+      <h3>Method</h3>
+      <ol>
+        <li>Slice the tofu into slabs about 1 cm thick and press them dry between paper towels for a few minutes. Water is the enemy of the crust.</li>
+        <li>Fry in a thin film of hot oil, 3–4 minutes a side, until golden and firm at the edges.</li>
+        <li>Mix the soy, gochugaru, sugar, sesame oil, minced garlic and 100 ml water.</li>
+        <li>Pour the sauce around the tofu and simmer 5–7 minutes, spooning it over, until it reduces to a syrupy glaze and the pan is nearly dry.</li>
+        <li>Scatter the sliced spring onion and sesame seeds. Serve with rice, hot or at room temperature.</li>
+      </ol>
+      <p class="note"><b>Keeps well:</b> this is meant to be eaten cold from the fridge as much as hot from the pan. Make a double batch.</p>
+    </div>
+  </div>
+</article>
+
+<!-- 7 PERU -->
+<article class="recipe" id="peru">
+  <p class="place-line">Peru</p>
+  <h2>Lomo saltado</h2>
+  <p class="pronounce">Beef stir-fried with soy, vinegar and chips</p>
+  <div class="stats"><span><b>Serves</b> 2–3</span><span><b>Active</b> 20 minutes</span><span><b>Protein</b> sirloin</span><span><b>Pan</b> one wok or wide skillet</span></div>
+  <p class="intro">Peru's chifa cooking in one plate: a Chinese wok technique aimed at Peruvian ingredients, served — non-negotiably — with both chips and rice. Frozen oven fries are the shortcut that makes it a weeknight dish, and nobody will hold it against you.</p>
+
+  <div class="cols">
+    <div class="side">
+      <section>
+        <h3>Shopping</h3>
+        <p class="group">Fresh</p>
+        <ul>
+          <li><span class="qty">400 g</span> sirloin or rump, cut in finger-width strips</li>
+          <li><span class="qty">1</span> red onion</li>
+          <li><span class="qty">2</span> firm tomatoes</li>
+          <li><span class="qty">2</span> garlic cloves · coriander</li>
+        </ul>
+        <p class="group">Pantry</p>
+        <ul>
+          <li><span class="qty">1 tbsp</span> ají amarillo paste</li>
+          <li><span class="qty">3 tbsp</span> soy sauce</li>
+          <li><span class="qty">2 tbsp</span> red wine vinegar</li>
+          <li>oven fries · rice · oil · salt</li>
+        </ul>
+      </section>
+      <section class="subs">
+        <h3>If you don't have it</h3>
+        <p><b>Ají amarillo paste</b> — a jar keeps for months and is worth ordering. In its absence, half a yellow pepper blended with a pinch of cayenne gives the colour and a mild fruitiness, but not the specific floral heat.</p>
+        <p><b>Beef</b> — chicken thigh strips take the same treatment; the dish is then not lomo saltado, it is pollo saltado, which is also on every menu.</p>
+        <p><b>Oven fries</b> — leftover roast potatoes, cut into batons and crisped.</p>
+      </section>
+    </div>
+
+    <div class="method">
+      <h3>Method</h3>
+      <ol>
+        <li>Get the fries into a hot oven and the rice on before you touch the beef. Everything else takes six minutes.</li>
+        <li>Dry the beef strips well and salt them. Heat a wide pan until it is genuinely smoking.</li>
+        <li>Sear the beef in two batches, a minute or so each, so it browns rather than stews. Lift it out.</li>
+        <li>Cut the onion into thick wedges and the tomatoes into eighths. Onion into the pan for 1 minute, tomato for 1 minute more — they should soften at the edge and hold their shape.</li>
+        <li>Add the garlic and ají paste, 30 seconds, then pour in the soy and vinegar and let it hiss and reduce by half.</li>
+        <li>Return the beef with its juices, toss 30 seconds, kill the heat and fold through coriander and the hot fries. Serve with rice alongside.</li>
+      </ol>
+      <p class="note"><b>The vinegar is the signature.</b> It goes in at the end, off a hot pan, so the sharpness survives to the plate.</p>
+    </div>
+  </div>
+</article>
+
+<!-- 8 ETHIOPIA -->
+<article class="recipe" id="ethiopia">
+  <p class="place-line">Ethiopia</p>
+  <h2>Misir wot</h2>
+  <p class="pronounce">Red lentils in berbere, the fasting-day staple</p>
+  <div class="stats"><span><b>Serves</b> 4</span><span><b>Active</b> 10 minutes</span><span><b>Protein</b> red lentils</span><span><b>Pan</b> one pot</span></div>
+  <p class="intro">Ten minutes of work and twenty-five of unattended simmering. Eaten across Ethiopia and Eritrea on fasting days, when it is made without butter — which is also how it stays vegan by default. The whole dish stands on one ingredient: berbere.</p>
+
+  <div class="cols">
+    <div class="side">
+      <section>
+        <h3>Shopping</h3>
+        <p class="group">Fresh</p>
+        <ul>
+          <li><span class="qty">1</span> large onion</li>
+          <li><span class="qty">3</span> garlic cloves · <span class="qty">1</span> thumb ginger</li>
+          <li>injera, or flatbread and rice</li>
+        </ul>
+        <p class="group">Pantry</p>
+        <ul>
+          <li><span class="qty">300 g</span> red lentils</li>
+          <li><span class="qty">2–3 tbsp</span> berbere</li>
+          <li><span class="qty">2 tbsp</span> tomato paste</li>
+          <li><span class="qty">3 tbsp</span> oil, or niter kibbeh</li>
+          <li>salt</li>
+        </ul>
+      </section>
+      <section class="subs">
+        <h3>If you don't have it</h3>
+        <p><b>Berbere</b> — no substitute, and anything you build from paprika and cayenne will be a different stew wearing its name. It is sold in most African and Middle Eastern groceries and keeps for a year.</p>
+        <p><b>Niter kibbeh</b> — melt butter with a crushed cardamom pod, a strip of ginger and a pinch of fenugreek, then strain. Or use plain oil and keep it a fasting dish.</p>
+        <p><b>Injera</b> — takes days of fermentation. Buy it, or eat this with rice without pretending otherwise.</p>
+      </section>
+    </div>
+
+    <div class="method">
+      <h3>Method</h3>
+      <ol>
+        <li>Chop the onion very finely and cook it in a dry pan over medium heat for about 5 minutes, stirring, until it softens and loses its water. This dry start is traditional and gives the base its sweetness.</li>
+        <li>Add the oil or niter kibbeh, then the grated garlic and ginger, and fry 1 minute.</li>
+        <li>Stir in the berbere and tomato paste and cook 1 minute more, until the paste darkens and the kitchen smells of it.</li>
+        <li>Rinse the lentils until the water runs clear, then add them with 900 ml water and a good pinch of salt.</li>
+        <li>Simmer uncovered 20–25 minutes, stirring now and then, until the lentils have collapsed into a thick porridge that holds the trace of a spoon. Add water if it tightens too far.</li>
+        <li>Salt again to taste — it needs more than you expect — and serve with injera or bread.</li>
+      </ol>
+      <p class="note"><b>Heat varies by brand:</b> start at 2 tbsp of berbere the first time you open a new bag, then adjust.</p>
+    </div>
+  </div>
+</article>
+
+<!-- 9 VIETNAM -->
+<article class="recipe" id="vietnam">
+  <p class="place-line">Vietnam</p>
+  <h2>Cá kho</h2>
+  <p class="pronounce">Fish braised in burnt-sugar caramel and fish sauce</p>
+  <div class="stats"><span><b>Serves</b> 2–3</span><span><b>Active</b> 20 minutes</span><span><b>Protein</b> firm white fish</span><span><b>Pan</b> one deep skillet</span></div>
+  <p class="intro">A southern home-cooking staple, normally made with catfish in a clay pot. The caramel is not a sweet sauce — cooked to deep amber it turns bitter and savoury, and the fish sauce and pepper do the rest.</p>
+
+  <div class="cols">
+    <div class="side">
+      <section>
+        <h3>Shopping</h3>
+        <p class="group">Fresh</p>
+        <ul>
+          <li><span class="qty">500 g</span> firm fish steaks — catfish, basa, cod or salmon</li>
+          <li><span class="qty">2</span> shallots · <span class="qty">2</span> garlic cloves</li>
+          <li><span class="qty">1</span> thumb ginger</li>
+          <li><span class="qty">1</span> red chilli · spring onions</li>
+        </ul>
+        <p class="group">Pantry</p>
+        <ul>
+          <li><span class="qty">3 tbsp</span> sugar</li>
+          <li><span class="qty">3 tbsp</span> fish sauce</li>
+          <li>coarse black pepper · oil · rice</li>
+        </ul>
+      </section>
+      <section class="subs">
+        <h3>If you don't have it</h3>
+        <p><b>Caramel from scratch</b> — bottled Vietnamese <i>nước màu</i> does the same job; use 2 tbsp and skip step one.</p>
+        <p><b>Water</b> — coconut water is the common choice in the south and rounds the sauce out. Not sweetened coconut milk.</p>
+        <p><b>Salmon</b> — works well but cooks in about 8 minutes rather than 15. Watch it.</p>
+        <p><b>Pork version</b> — <i>thịt kho</i> uses the same caramel with pork belly and hard-boiled eggs, and takes an hour.</p>
+      </section>
+    </div>
+
+    <div class="method">
+      <h3>Method</h3>
+      <ol>
+        <li>Put the sugar and 2 tbsp water in a deep pan over medium heat. Leave it alone until it turns the colour of dark tea, 3–4 minutes. Stop there — a shade past this is bitterness you cannot fix.</li>
+        <li>Add a splash of oil, the sliced shallots and garlic, and stir for 30 seconds.</li>
+        <li>Stand back and pour in the fish sauce and 150 ml water. It will spit and the caramel will seize, then dissolve.</li>
+        <li>Lay in the fish in a single layer with the julienned ginger and sliced chilli. Cover and simmer gently 12–15 minutes, spooning sauce over the fish a few times.</li>
+        <li>Uncover and let the sauce reduce for a couple of minutes until it coats the fish and darkens.</li>
+        <li>Finish with far more coarse black pepper than looks right, and spring onion. Serve with plain rice and something green.</li>
+      </ol>
+      <p class="note"><b>Don't turn the fish.</b> Spoon the sauce over it instead; a firm steak still breaks apart if you flip it mid-braise.</p>
+    </div>
+  </div>
+</article>
+
+<!-- 10 PORTUGAL -->
+<article class="recipe" id="portugal">
+  <p class="place-line">Portugal</p>
+  <h2>Bitoque</h2>
+  <p class="pronounce">Thin steak, fried egg, garlic and bay pan sauce</p>
+  <div class="stats"><span><b>Serves</b> 2</span><span><b>Active</b> 15 minutes</span><span><b>Protein</b> beef and egg</span><span><b>Pan</b> one skillet</span></div>
+  <p class="intro">The default lunch of every tasca in Lisbon, and an argument that a weeknight steak should be thin rather than thick. The egg on top is the dish — without it this is just a steak.</p>
+
+  <div class="cols">
+    <div class="side">
+      <section>
+        <h3>Shopping</h3>
+        <p class="group">Fresh</p>
+        <ul>
+          <li><span class="qty">2</span> sirloin or rump steaks, about 150 g each</li>
+          <li><span class="qty">2</span> eggs</li>
+          <li><span class="qty">2</span> garlic cloves</li>
+          <li>oven fries · a pickle or two</li>
+        </ul>
+        <p class="group">Pantry</p>
+        <ul>
+          <li><span class="qty">2</span> bay leaves</li>
+          <li><span class="qty">1 tbsp</span> butter</li>
+          <li><span class="qty">50 ml</span> white wine or beer</li>
+          <li>olive oil · salt · pepper · rice</li>
+        </ul>
+      </section>
+      <section class="subs">
+        <h3>If you don't have it</h3>
+        <p><b>Beef</b> — pork loin cutlets make <i>bitoque de porco</i>, equally standard, and are usually cheaper.</p>
+        <p><b>Wine</b> — beer is common in Portugal; stock works at a push.</p>
+        <p><b>Both fries and rice</b> — yes, both. Serving one or the other is the compromise, not a rule.</p>
+      </section>
+    </div>
+
+    <div class="method">
+      <h3>Method</h3>
+      <ol>
+        <li>Fries in the oven, rice on. Pound the steaks between two sheets of paper to about 1 cm and season them well.</li>
+        <li>Heat oil and butter in a skillet with the smashed garlic cloves and bay leaves until the garlic is fragrant but not brown.</li>
+        <li>Sear the steaks 1–1½ minutes a side for medium-rare at that thickness. Move them to warm plates to rest.</li>
+        <li>Pour the wine into the pan, scrape the base, and let it reduce to a few spoonfuls. Whisk in a knob of butter off the heat.</li>
+        <li>Fry the eggs in the same pan, hard at the edges, soft in the yolk.</li>
+        <li>Egg on steak, sauce over both, fries and rice alongside, pickle on the side.</li>
+      </ol>
+      <p class="note"><b>Rest the meat, not the egg.</b> Fry the egg while the steak sits and everything reaches the table at the right moment.</p>
+    </div>
+  </div>
+</article>
+
+<section class="appendix">
+  <h2>The shelf</h2>
+  <p class="preamble">Buy these once and eight of the ten recipes become a matter of picking up one fresh thing on the way home. The four in italics have no honest substitute; the rest can be approximated.</p>
+  <ul class="pantry">
+    <li>Soy sauce</li>
+    <li>Fish sauce</li>
+    <li>Mirin and sake</li>
+    <li><i>Chipotles in adobo</i></li>
+    <li><i>Berbere</i></li>
+    <li><i>Gochugaru</i></li>
+    <li><i>Ají amarillo paste</i></li>
+    <li>Aleppo pepper (pul biber)</li>
+    <li>Tahini</li>
+    <li>Amchur</li>
+    <li>Garam masala, cumin seeds, turmeric, ground coriander</li>
+    <li>Allspice, cinnamon, bay leaves, dried oregano</li>
+    <li>Sesame oil and sesame seeds</li>
+    <li>Red wine vinegar</li>
+    <li>Canned chickpeas, canned tomatoes, red lentils</li>
+    <li>Rice, and a bag of oven fries in the freezer</li>
+  </ul>
+
+  <h2>Where the clock won</h2>
+  <p class="preamble">Three honest notes. The tinga assumes you may use shop-roasted chicken, which is a shortcut on the poaching and nothing else. The lomo saltado uses frozen fries rather than potatoes fried in the pan, which costs a little texture. The misir wot is served here with rice or bread, because injera is a three-day fermentation and no weeknight version of it is worth making. Everything else is the dish as it is cooked at home.</p>
+
+  <footer>Ten Weeknights · quantities serve two to four as marked · active times exclude rice and oven time</footer>
+</section>
+
+</div>
+</body>
+</html>
